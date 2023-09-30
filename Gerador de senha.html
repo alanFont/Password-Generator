@@ -1,9 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+        <title>Gerador de senha</title>  
     </head>
     <body>
-        
+        <h1>Gerador de senha</h1>
+        <p>Utilize o nosso gerador online para criar uma senha forte e segura.</p>
+
+        <input type="text" name="password" id="password" />
+
+        <input type="range" 
+            name="passwordLength" 
+            id="passwordLength" 
+            value="16"
+            min="4" 
+            max="64" 
+        />
+
+        <button id="copy">Copiar senha</button>
+
+        <script>
+            // Variables
+            let passwordLength = 16
+            const inputEl = document.querySelector("#password")
+
+            // run
+            // password generator function
+            function generatePassword() {
+                const chars = 
+                "abcdefghjklmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWYZ123456789?!@&*()[]"
+
+                let password = ""
+
+                for (let i = 0; i < passwordLength; i++) {
+                    const randomNumber = Math.floor(Math.random() * chars.length)
+                    password += chars.substring(randomNumber, randomNumber + 1)
+                }
+                inputEl.value = password
+            }
+
+            // password copy function
+            function copy() {
+                navigator.clipboard.writeText(inputEl.value)
+            }
+
+            // password length selector event and function
+            const passwordLengthEl = document.querySelector("#passwordLength")
+            passwordLengthEl.addEventListener("input", function() {
+                passwordLength = passwordLengthEl.value
+                generatePassword()
+            })
+
+            // password copy event
+            const copyButtonEl = document.querySelector("#copy")
+            copyButtonEl.addEventListener("click", copy)
+
+            generatePassword()
+        </script>
     </body>
 </html>
