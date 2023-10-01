@@ -45,8 +45,9 @@
                 <div class="password-length">
                 <p>Tamanho: <span id="password-length-text">16</span></p>
                 <input type="range" 
-                name="passwordLength" 
-                id="passwordLength" 
+                name="password-length" 
+                id="password-length"
+                class="slider"
                 value="16"
                 min="4" 
                 max="64" 
@@ -100,7 +101,7 @@
             }
 
             // password length selector event and function
-            const passwordLengthEl = document.querySelector("#passwordLength")
+            const passwordLengthEl = document.querySelector("#password-length")
             passwordLengthEl.addEventListener("input", function() {
                 passwordLength = passwordLengthEl.value
                 generatePassword()
