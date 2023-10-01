@@ -9,7 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="reset.css">
-        <title>Gerador de senha</title>  
+        <title>Password Generator</title>  
     </head>
     <body>
         <main>
@@ -113,6 +113,7 @@
                     password += chars.substring(randomNumber, randomNumber + 1)
                 }
 
+                calculateFontSize()
                 calculateQuality()
                 inputEl.value = password
             }
@@ -126,9 +127,47 @@
                 + (symbolCheckEl.checked ? 35 : 0)
                 )
 
-                console.log(percent)
-
                 securityIndicatorBarEl.style.width = `${percent}%`
+
+                if (percent > 69) {
+                    securityIndicatorBarEl.classList.remove("critical")
+                    securityIndicatorBarEl.classList.remove("warning")
+                    securityIndicatorBarEl.classList.add("safe")
+                } else if (percent > 50) {
+                    securityIndicatorBarEl.classList.remove("critical")
+                    securityIndicatorBarEl.classList.add("warning")
+                    securityIndicatorBarEl.classList.remove("safe")
+                } else {
+                    securityIndicatorBarEl.classList.add("critical")
+                    securityIndicatorBarEl.classList.remove("warning")
+                    securityIndicatorBarEl.classList.remove("safe")
+                }
+
+                if (percent >= 100) {
+                    securityIndicatorBarEl.classList.add("completed")
+                } else {
+                    securityIndicatorBarEl.classList.remove("completed")
+                }
+            }
+
+            function calculateFontSize() {
+                if (passwordLength > 45) {
+                    inputEl.classList.remove("font-sm")
+                    inputEl.classList.remove("font-xs")
+                    inputEl.classList.add("font-xxs")
+                } else if (passwordLength > 32) {
+                    inputEl.classList.remove("font-sm")
+                    inputEl.classList.add("font-xs")
+                    inputEl.classList.remove("font-xxs")
+                } else if (passwordLength > 22) {
+                    inputEl.classList.add("font-sm")
+                    inputEl.classList.remove("font-xs")
+                    inputEl.classList.remove("font-xxs")
+                } else {
+                    inputEl.classList.remove("font-sm")
+                    inputEl.classList.remove("font-xs")
+                    inputEl.classList.remove("font-xxs")
+                }
             }
 
             // password copy function
@@ -151,6 +190,7 @@
             // password copy event
             document.querySelector("#copy-1").addEventListener("click", copy)
             document.querySelector("#copy-2").addEventListener("click", copy)
+            document.querySelector("#renew").addEventListener("click", generatePassword)
 
             generatePassword()
         </script>
