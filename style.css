@@ -13,6 +13,7 @@ main{
 .hero {
     text-align: center;
     padding-bottom: 3rem;
+    padding-top: 1.5rem;
 }
 
 .hero .title {
